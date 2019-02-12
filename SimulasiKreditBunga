@@ -1,0 +1,59 @@
+import java.util.Scanner;
+import java.util.Calendar;
+/**
+ * Write a description of class Main here.
+ *
+ * @author Dian swastiani 2016730025
+ * @version (a version number or a date)
+ */
+public class Main
+{
+   public static void main(String[] args)
+   {
+       Scanner sc= new Scanner(System.in);
+       System.out.println("Masukan jumlah pinjaman :");
+       double pinjaman=sc.nextDouble();
+       System.out.println("Masukan suku bunga tahunan :");
+       double sukuBunga=sc.nextDouble();
+       System.out.println("Masukan jumlah tenor :");
+       int tenor=sc.nextInt();
+       System.out.println("Masukan Biaya Administrasi Bulanan :");
+       double biayaAdmin=sc.nextDouble();
+       
+       double angsuranPokok= pinjaman/tenor;
+       
+       Calendar calendar= Calendar.getInstance();
+       int mulaiPinjaman=calendar.get(Calendar.MONTH)+1;
+       int selesaiPinjaman=calendar.get(Calendar.MONTH)+1+tenor;
+       double angsuranBulanan=0;
+       double angsPokok=0;
+       double totalAdmin=0;
+       for(int i=1;i<=tenor;i++)
+       {
+           System.out.println("Periode:"+mulaiPinjaman);
+           mulaiPinjaman++;
+           if(mulaiPinjaman>12)
+           {
+               mulaiPinjaman=1;
+            }
+           System.out.println("Angsuran pokok:" + angsuranPokok);
+           angsPokok+=angsuranPokok;
+           double bungaEfektif=(pinjaman-((i-1)*angsuranPokok)) * ((sukuBunga/100)/12);
+           angsuranBulanan+=bungaEfektif;
+           System.out.printf("Angsuran bunga bulanan: %.2f",bungaEfektif);
+           System.out.println("Biaya Admin :" + biayaAdmin);
+           totalAdmin+=biayaAdmin;
+           System.out.printf("Total Angsuran : %.2f" ,bungaEfektif+angsuranPokok+
+           biayaAdmin);
+           System.out.println();
+           System.out.println("===========================================");
+       }
+       System.out.println();
+       System.out.printf("Total Angsuran pokok : %.2f", angsPokok);
+       System.out.println();
+       System.out.printf("Total Angsuran bunga :%.2f",angsuranBulanan);
+       System.out.println();
+       System.out.printf("Total biayaAdmin :%.2f" ,totalAdmin);
+       System.out.println();
+   }
+}
